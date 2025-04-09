@@ -189,14 +189,47 @@ new CommandHandler({
 
 (async () => {
   try {
+    console.log("Iniciando conexão com o MongoDB...");
     mongoose.set("strictQuery", false);
     await mongoose.connect(process.env.MONGODB_URI);
     console.log("Connected to DB.");
-    if (client.playerType === 'discord_player' | client.playerType === 'both') await player.extractors.loadDefault();
+    
+    console.log("Configurando player...");
+    if (client.playerType === 'discord_player' | client.playerType === 'both') {
+      console.log("Carregando extractors do discord-player...");
+      await player.extractors.loadDefault();
+      console.log("Extractors carregados com sucesso!");
+    }
+    
+    console.log("Configurando cluster client...");
     client.cluster = new ClusterClient(client);
+    console.log("Cluster client configurado!");
+    
+    console.log("Carregando eventos de giveaway...");
     require('./events/giveawayEvents/checkGiveaway.js')(client);
+    console.log("Eventos de giveaway carregados!");
+    
+    console.log("Tentando fazer login com o token...");
+    console.log("Token:", process.env.TOKEN ? "Token presente" : "Token ausente");
+    
+    client.login(process.env.TOKEN)
+      .then(() => console.log(`Bot logado como ${client.user.tag}!`))
+      .catch(error => {
+        console.error("Erro ao fazer login:", error);
+        console.error("Detalhes do erro:", error.message);
+        if (error.code) console.error("Código do erro:", error.code);
+      });
   } catch (error) {
     console.log(`Error: ${error}`);
+    console.error("Detalhes do erro:", error.message);
+    if (error.stack) console.error("Stack trace:", error.stack);
   }
 })();
+
+client.on('ready', () => console.log(`Bot está pronto! Logado como ${client.user.tag}`));
+client.on('disconnect', (event) => console.log('Bot desconectado:', event));
+client.on('error', error => console.error('Erro no cliente Discord:', error));
+client.on('warn', info => console.log('Aviso:', info));
+client.on('debug', info => console.log('Debug:', info));
+
 module.exports = client;

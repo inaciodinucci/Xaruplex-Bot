@@ -195,8 +195,22 @@ new CommandHandler({
     if (client.playerType === 'discord_player' | client.playerType === 'both') await player.extractors.loadDefault();
     client.cluster = new ClusterClient(client);
     require('./events/giveawayEvents/checkGiveaway.js')(client);
+    
+    console.log("Tentando fazer login com o token...");
+    client.login(process.env.TOKEN)
+      .then(() => console.log(`Bot logado como ${client.user.tag}!`))
+      .catch(error => console.error("Erro ao fazer login:", error));
+      
   } catch (error) {
     console.log(`Error: ${error}`);
   }
 })();
+
+// Adiciona eventos para monitorar erros de conexão
+client.on('disconnect', (event) => console.log('Bot desconectado:', event));
+client.on('error', error => console.error('Erro no cliente Discord:', error));
+client.on('warn', info => console.log('Aviso:', info));
+client.on('debug', info => console.log('Debug:', info));
+client.on('ready', () => console.log(`Bot está pronto! Logado como ${client.user.tag}`));
+
 module.exports = client;
