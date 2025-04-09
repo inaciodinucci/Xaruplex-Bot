@@ -3,7 +3,7 @@
 
 A powerful and feature-rich Discord music bot made for my personal server with support for multiple music sources, customizable player settings, and voice channel management.
 
-## THIS BOT IS MADE IN BRAZILLIAN PORTUGUESE, AND IT HAS A STRONG VOCABULARY. Don't mind the cursed words!
+# THIS BOT IS MADE IN BRAZILLIAN PORTUGUESE, AND IT HAS A STRONG VOCABULARY. Don't mind the cursed words!
 
 
 ## Features
@@ -46,8 +46,8 @@ A powerful and feature-rich Discord music bot made for my personal server with s
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/Xaruplex-Music-Bot.git
-   cd Xaruplex-Music-Bot
+   git clone https://github.com/inaciodinucci/Xaruplex-Bot.git
+   cd Xaruplex-Bot
    ```
 
 2. Install dependencies:
