@@ -275,18 +275,6 @@ module.exports = {
           components: [],
         });
       });
-
-    } else {
-      const embed = new EmbedBuilder()
-        .setTitle("Configurações do Player")
-        .setDescription("Você precisa votar para acessar as configurações do player.")
-        .setColor("#e66229"); 
-
-      const voteButton = new ButtonBuilder().setLabel("Votar").setStyle(ButtonStyle.Link).setURL("https://top.gg/bot/1105149646612987934/");
-      row.addComponents(voteButton)
-      interaction.editReply({ embeds: [embed], components: [row] });
-      return;
-    }
           
   } catch (error) {
    console.log("error while running playerSettings",error)   
