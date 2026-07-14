@@ -36,6 +36,19 @@ const AnalyticsSchema = new Schema({
     required: true,
     default: 0
   },
+  
+  // TODO: Verificar se tipo Number é necessário para latência ou se String é suficiente para logs
+  // BUG: Definido como String, mas cálculos de ping exigem Number. Isso causará erro de tipo se o ping.js tentar salvar.
+  latency: {
+    type: String,
+    default: '0',
+    required: false
+  },
+  
+  lastPingTimestamp: {
+    type: Number,
+    default: 0
+  }
 });
 
 module.exports = model('Analytics', AnalyticsSchema);
